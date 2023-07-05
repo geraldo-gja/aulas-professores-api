@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.unitech.entity.Aula;
 import com.unitech.service.IAulaService;
 
+/**
+ * Classe para requisições Rest relacionado à entidadeAula.
+ * 
+ * @author Geraldo Jorge
+ * email: geraldo.gja@gmail.com
+ */
 @RestController
 @RequestMapping(value = "/aulas")
 public class AulaController {
@@ -53,4 +59,5 @@ public class AulaController {
 		service.delete(id);
 		return "Aula de ID " + id + " deletada.";
 	}
+	
 }

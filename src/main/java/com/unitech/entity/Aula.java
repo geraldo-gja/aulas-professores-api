@@ -3,10 +3,8 @@ package com.unitech.entity;
 
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.springframework.data.annotation.Id;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -34,12 +32,4 @@ public class Aula {
 		this.date = date;
 	}
 	
-	public Aula(long id, String titulo, String descricao, Date date) {
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.date = date;
-	}
-	
-
 }

@@ -1,6 +1,7 @@
 package com.unitech.service.impl;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,21 +26,29 @@ public class AulaService implements IAulaService {
 	@Autowired
 	private AulaRepository repository;
 	
+	@Override
 	public Aula findById (Long id) {		
 		Optional<Aula> obj = repository.findById(id);	
 		return obj.orElseThrow( () -> new ObjectNotFoundException(
 				"Objeto não encontrato! Id: " + id + ", Tipo: " + Aula.class.getName() ) );
 	}
 	
+	@Override
 	public List<Aula> findAll(){		
 		return repository.findAll();
 	}
 	
+	//TODO - setar o Professor
+	@Override
 	public Aula save(Aula aula){
 		aula.setId( generateId() );  
+		if( aula.getDate() == null )
+			aula.setDate( new Date() );
+		
 		return repository.save(aula);
 	}
 	
+	@Override
 	public Aula update(Long id, Aula aula){		
 		Aula obj = findById(id);
 		obj.setTitulo( aula.getTitulo() );
@@ -49,9 +58,10 @@ public class AulaService implements IAulaService {
 		return repository.save(obj);
 	}
 	
+	@Override
 	public void delete(Long id) {
-		Aula a = findById(id);
-		repository.delete(a);
+		Aula obj = findById(id);
+		repository.delete(obj);
 	}
  
 	/**

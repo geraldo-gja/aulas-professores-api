@@ -13,10 +13,10 @@ import com.unitech.entity.Aula;
 public interface IAulaService {
 
 	/**
-	 * Busca uma aula pelo id. 
+	 * Busca uma Aula pelo id. 
 	 * Lança ObjectNotFoundException caso não encontre.
 	 * 
-	 * @param id - identificador de aula
+	 * @param id - identificador de Aula
 	 * @return Entidade Aula
 	 * @throws ObjectNotFoundException se id não existe
 	 */
@@ -30,7 +30,9 @@ public interface IAulaService {
 	public List<Aula> findAll();
 	
 	/**
-	 * Salva uma aula com id gerado de forma sequencial.
+	 * Salva uma Aula.
+	 * O id é gerado de forma sequencial.
+	 * Se a data estiver null, será criada com a data atual.
 	 * 
 	 * @param aula - Entidade Aula
 	 * @return Entidade Aula com ID gerado.
@@ -39,18 +41,18 @@ public interface IAulaService {
 	
 	
 	/**
-	 * Atualiza uma aula pelo id.
+	 * Atualiza uma Aula pelo id.
 	 * 
-	 * @param id - identificador de aula
+	 * @param id - identificador de Aula
 	 * @param aula - Entidade Aula
 	 * @return Entidade Aula atualizada
 	 */
 	public Aula update(Long id, Aula aula);
 	
 	/**
-	 * Deleta uma aula.
+	 * Deleta uma Aula.
 	 * 
-	 * @param id - identificador de aula
+	 * @param id - identificador de Aula
 	 */
 	public void delete(Long id);
  
