@@ -15,4 +15,15 @@ public class Professor extends Usuario {
 	
 	private List<Aula> aulas;
 	
+	public Professor() {
+		super();
+	}
+	
+	public Professor(String login,String password ,String nome, String codigo, List<Aula> aulas) {
+		super(login, password);
+		this.nome = nome;
+		this.codigo = codigo;
+		this.aulas = aulas;
+	}
+	
 }
