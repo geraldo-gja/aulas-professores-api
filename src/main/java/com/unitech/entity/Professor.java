@@ -1,5 +1,6 @@
 package com.unitech.entity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Getter;
@@ -19,11 +20,11 @@ public class Professor extends Usuario {
 		super();
 	}
 	
-	public Professor(String login,String password ,String nome, String codigo, List<Aula> aulas) {
+	public Professor(String login,String password ,String nome, String codigo) {
 		super(login, password);
 		this.nome = nome;
 		this.codigo = codigo;
-		this.aulas = aulas;
+		this.aulas = new LinkedList<Aula>();
 	}
 	
 }

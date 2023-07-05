@@ -46,9 +46,9 @@ public class ProfessorService implements IProfessorService {
 	@Override
 	public Professor update(Long id, Professor professor) {
 		Professor obj = findById(id);
-		obj.setNome( obj.getNome() );  
-		obj.setPassword( obj.getPassword() );
-		obj.setAulas( obj.getAulas() );
+		obj.setNome( professor.getNome() );  
+		obj.setPassword( professor.getPassword() );
+		obj.setAulas( professor.getAulas() );
 		
 		return repository.save(obj);
 	}
