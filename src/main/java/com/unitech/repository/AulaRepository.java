@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.unitech.entity.Aula;
 
 
-public interface AulaRepository extends MongoRepository<Aula, String>{
+public interface AulaRepository extends MongoRepository<Aula, Long>{
 
 }

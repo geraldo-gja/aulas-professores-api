@@ -1,45 +1,56 @@
 package com.unitech.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unitech.entity.Aula;
-import com.unitech.repository.AulaRepository;
+import com.unitech.service.IAulaService;
 
 @RestController
 @RequestMapping(value = "/aulas")
 public class AulaController {
 
 	@Autowired
-	private AulaRepository repository;
+	private IAulaService service;
 	
-	@PostMapping("/add")
-	public String saveAula(@RequestBody Aula aula) {
-		repository.save(aula);
-		return "Aula " + aula.getTitulo() + " adicionada.";
+	
+	@GetMapping("/findById/{id}")
+	public ResponseEntity<Aula> findById(@PathVariable Long id) {
+		Aula obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping("/findAll")
-	public List<Aula> getAulas(){
-		return repository.findAll();
+	public ResponseEntity< List<Aula> > findAll(){
+		List<Aula> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping("/get/{id}")
-	public Optional<Aula> getAula(@PathVariable String id) {
-		return repository.findById(id);
+	@PostMapping("/save")			//TODO  @Valid
+	public ResponseEntity<Aula> save(@RequestBody Aula aula) {
+		aula = service.save(aula);
+		return ResponseEntity.ok().body( aula );
+	}
+	
+	@PutMapping("/update/{id}")     //TODO  @Valid
+	public ResponseEntity<Aula> update(@PathVariable Long id, @RequestBody Aula aula) {
+		aula = service.update(id, aula);
+		return ResponseEntity.ok().body( aula );
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String deleteAula(@PathVariable int id) {
+	public String delete(@PathVariable Long id) {
+		service.delete(id);
 		return "Aula de ID " + id + " deletada.";
 	}
 }

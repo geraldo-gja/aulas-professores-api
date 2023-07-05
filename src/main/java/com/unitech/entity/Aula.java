@@ -1,37 +1,40 @@
 package com.unitech.entity;
 
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
 @Data
-@Document
 public class Aula {
 
 	@Id
-	private String id;
+	private long id;
 	
 	private String titulo;
 	
 	private String descricao;
 	
-	private LocalDate date;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	private Date date;
 	
 	public Aula() {
 
 	}
 	
-	public Aula(String titulo, String descricao, LocalDate date) {
+	public Aula(String titulo, String descricao, Date date) {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.date = date;
 	}
 	
-	public Aula(String id, String titulo, String descricao, LocalDate date) {
+	public Aula(long id, String titulo, String descricao, Date date) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
