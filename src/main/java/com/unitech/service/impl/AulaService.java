@@ -34,7 +34,7 @@ public class AulaService implements IAulaService {
 	}
 	
 	@Override
-	public List<Aula> findAll(){		
+	public List<Aula> findAll(){
 		return repository.findAll();
 	}
 	
@@ -53,7 +53,8 @@ public class AulaService implements IAulaService {
 		Aula obj = findById(id);
 		obj.setTitulo( aula.getTitulo() );
 		obj.setDescricao( aula.getDescricao() );
-		obj.setDate( aula.getDate() );
+		if( aula.getDate() != null )
+			obj.setDate( aula.getDate() );
 		
 		return repository.save(obj);
 	}
@@ -70,7 +71,7 @@ public class AulaService implements IAulaService {
 	 * @return long
 	 */
 	private long generateId() {
-		long id = 0;
+		long id = 1;
 		List<Long> ids = findAll().stream().map(obj -> obj.getId()).collect(Collectors.toList());
 		if( ids.size() > 0 ) {
 			Collections.sort(ids);
