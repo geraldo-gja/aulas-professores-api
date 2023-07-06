@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
 */
 
 /**
- * TODO 
+ * TODO - ordem testes
  * Executar o IProfessorServiceTest 1º
  * Como as aulas precisam de um idProfessor, o professor já precisa ser criado
  */

@@ -43,18 +43,25 @@ public class IProfessorServiceTest {
 	void teste01() {
 		
 		Professor obj1 = new Professor("geraldo.gja@gmail.com", "321", "Geraldo", "654321");
+		obj1.setAtivo(true);
 		obj1 = service.save(obj1);
 		Assertions.assertEquals(1, obj1.getId());
 		
 		Professor obj2 = new Professor("email@gmail.com", "456", "Professor", "987654");
+		obj2.setAtivo(true);
 		obj2 = service.save(obj2);
 		Assertions.assertNotNull(obj1.getAulas());
 		
-		//set ID para sequencia conforme registros no BD
-		Professor obj3 = new Professor("teste@teste.com", "456", "Professor Teste", "987654");
-		obj3.setId(0L);
+		Professor obj3 = new Professor("teste1@teste1.com", "456", "Teste 1", "987654");
 		obj3 = service.save(obj3);
 		Assertions.assertEquals(3, obj3.getId());
+		
+		//set ID para sequencia conforme registros no BD
+		Professor obj4 = new Professor("teste2@teste2.com", "456", "Teste 2", "987654");
+		obj4.setId(0L);
+		obj4 = service.save(obj4);
+		Assertions.assertEquals(4, obj4.getId());
+		
 	}
 	
 	@Test
@@ -81,19 +88,19 @@ public class IProfessorServiceTest {
 	@DisplayName("Deve buscar todos os registros de Professor")
 	void teste04() {
 		List<Professor> lista = service.findAll();
-		Assertions.assertEquals(3, lista.size() );
+		Assertions.assertEquals(4, lista.size() );
 	}
 	
 	@Test
 	@DisplayName("Deve deletar um registro de Professor")
 	void teste05() {
-		service.delete(3L);
+		service.delete(4L);
 		List<Professor> lista = service.findAll();
-		Assertions.assertEquals(2, lista.size() );
+		Assertions.assertEquals(3, lista.size() );
 		
 		//dispara excetion caso tente deletar um objeto que nao exista
 		Assertions.assertThrows
-		( ObjectNotFoundException.class, () -> service.findById(3L) ); 
+		( ObjectNotFoundException.class, () -> service.findById(4L) ); 
 		
 		//dispara excetion caso tente deletar um professor que possue aulas assossiadas
 		Professor p = service.findById(1L);

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.unitech.entity.Aula;
 import com.unitech.repository.AulaRepository;
+import com.unitech.service.exceptions.DataIntegrityViolationException;
 import com.unitech.service.exceptions.ObjectNotFoundException;
 import com.unitech.service.impl.AulaService;
 
@@ -62,6 +63,10 @@ class IAulaServiceTest {
 		Aula obj4 = new Aula("Computação", "1º fundamental", null);
 		obj4 = service.save(obj4, 2L);
 		Assertions.assertNotNull(obj4.getDate());
+		
+		//dispara excetion caso tente adicionar uma aula vinculado a um professor com cadastro não ativo
+		Assertions.assertThrows
+		( DataIntegrityViolationException.class, () -> service.save(new Aula(), 3L) );  
 	}
 	
 	@Test
