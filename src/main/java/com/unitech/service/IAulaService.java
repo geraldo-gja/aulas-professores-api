@@ -40,6 +40,8 @@ public interface IAulaService {
 	 * Salva uma Aula.
 	 * O id é gerado de forma sequencial.
 	 * Se a data estiver null, será criada com a data atual.
+	 * A aula é vinculado a um professor, 
+	 * então só será salva se o professor estiver com cadastro ativo.
 	 * 
 	 * @param aula - Entidade Aula
 	 * @param idProfessor - Professor ao qual a aula será vinculada

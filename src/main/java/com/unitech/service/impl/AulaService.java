@@ -13,6 +13,7 @@ import com.unitech.entity.Aula;
 import com.unitech.entity.Professor;
 import com.unitech.repository.AulaRepository;
 import com.unitech.service.IAulaService;
+import com.unitech.service.exceptions.DataIntegrityViolationException;
 import com.unitech.service.exceptions.ObjectNotFoundException;
 
 /**
@@ -55,10 +56,13 @@ public class AulaService implements IAulaService {
 		
 		Professor p = professorService.findById(idProfessor);
 		
-		aula.setIdProfessor(p.getId());
-		aula = repository.save(aula);
-		
-		atualizarAulasProfessor(aula.getIdProfessor());  
+		if( p.isAtivo() ) {
+			aula.setIdProfessor(p.getId());
+			aula = repository.save(aula);
+			atualizarAulasProfessor(aula.getIdProfessor());  		
+		}else
+			throw new DataIntegrityViolationException
+				("Aula não pode ser salva para este professor! Cadastro de Professor não está ativo.");	
 		
 		return aula;
 	}

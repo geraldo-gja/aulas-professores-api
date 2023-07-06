@@ -48,6 +48,12 @@ public class ProfessorController {
 		return ResponseEntity.ok().body( professor );
 	}
 	
+	@PutMapping("/ativar/{id}/{codigo}")			
+	public ResponseEntity<Professor> ativar(@PathVariable Long id, @PathVariable String codigo) {
+		Professor professor = service.ativarCadastro(id, codigo);
+		return ResponseEntity.ok().body( professor );
+	}
+	
 	@PutMapping("/update/{id}")     //TODO  @Valid
 	public ResponseEntity<Professor> update(@RequestBody Professor professor) {
 		professor = service.update(professor);

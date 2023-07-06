@@ -54,15 +54,23 @@ public class ProfessorService implements IProfessorService {
 		
 		return repository.save(obj);
 	}
+	
+	@Override
+	public Professor ativarCadastro(long id, String codigo) {
+		Professor p = findById(id);
+		if( codigo.equals(p.getCodigo()) )
+			p.setAtivo(true);
+		return repository.save(p);
+	}
 
 	@Override
 	public void delete(Long id) {
 		
 		Professor obj = findById(id);
-		if( obj.getAulas().size() > 0 )
-			throw new DataIntegrityViolationException("Professor não pode ser deletado! Possue aulas associadas.");	 
-		else
+		if( obj.getAulas().size() == 0 )
 			repository.delete(obj);					
+		else
+			throw new DataIntegrityViolationException("Professor não pode ser deletado! Possue aulas associadas.");	 
 	}
 	
 	/**

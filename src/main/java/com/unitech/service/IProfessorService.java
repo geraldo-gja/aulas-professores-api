@@ -3,7 +3,6 @@ package com.unitech.service;
 import java.util.List;
 
 import com.unitech.entity.Professor;
-import com.unitech.service.exceptions.DataIntegrityViolationException;
 
 /**
  * Interface para serviços de Professor.
@@ -39,6 +38,14 @@ public interface IProfessorService {
 	 */
 	public Professor save(Professor Professor);
 	
+	/**
+	 * Ativa o cadastro de um Professor.
+	 * 
+	 * @param id - identificador do professor que deverá ser ativado
+	 * @param codigo - código para ativar o cadastro
+	 * @return Entidade Professor com cadastro ativo.
+	 */
+	public Professor ativarCadastro(long id, String codigo);
 	
 	/**
 	 * Atualiza um Professor pelo id.
