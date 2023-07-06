@@ -49,6 +49,13 @@
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.hibernate.ogm/hibernate-ogm-mongodb -->
+		<dependency>
+		    <groupId>org.hibernate.ogm</groupId>
+		    <artifactId>hibernate-ogm-mongodb</artifactId>
+		    <version>5.4.1.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

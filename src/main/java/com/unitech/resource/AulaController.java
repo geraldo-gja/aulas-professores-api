@@ -43,14 +43,14 @@ public class AulaController {
 	}
 	
 	@PostMapping("/save")			//TODO  @Valid
-	public ResponseEntity<Aula> save(@RequestBody Aula aula) {
-		aula = service.save(aula);
+	public ResponseEntity<Aula> save(@RequestBody Aula aula, @PathVariable Long idProfessor) {
+		aula = service.save(aula, idProfessor);
 		return ResponseEntity.ok().body( aula );
 	}
 	
 	@PutMapping("/update/{id}")     //TODO  @Valid
-	public ResponseEntity<Aula> update(@PathVariable Long id, @RequestBody Aula aula) {
-		aula = service.update(id, aula);
+	public ResponseEntity<Aula> update(@RequestBody Aula aula) {
+		aula = service.update(aula);
 		return ResponseEntity.ok().body( aula );
 	}
 	

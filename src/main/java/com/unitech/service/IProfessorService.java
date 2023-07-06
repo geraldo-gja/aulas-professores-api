@@ -3,6 +3,7 @@ package com.unitech.service;
 import java.util.List;
 
 import com.unitech.entity.Professor;
+import com.unitech.service.exceptions.DataIntegrityViolationException;
 
 /**
  * Interface para serviços de Professor.
@@ -42,14 +43,14 @@ public interface IProfessorService {
 	/**
 	 * Atualiza um Professor pelo id.
 	 * 
-	 * @param id - identificador de Professor
 	 * @param Professor - Entidade Professor
 	 * @return Entidade Professor atualizada
 	 */
-	public Professor update(Long id, Professor Professor);
+	public Professor update(Professor Professor);
 	
 	/**
 	 * Deleta um Professor.
+	 * Se tiver aulas associadas, dispara DataIntegrityViolationException
 	 * 
 	 * @param id - identificador de Professor
 	 */

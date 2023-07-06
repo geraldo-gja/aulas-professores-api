@@ -49,8 +49,8 @@ public class ProfessorController {
 	}
 	
 	@PutMapping("/update/{id}")     //TODO  @Valid
-	public ResponseEntity<Professor> update(@PathVariable Long id, @RequestBody Professor professor) {
-		professor = service.update(id, professor);
+	public ResponseEntity<Professor> update(@RequestBody Professor professor) {
+		professor = service.update(professor);
 		return ResponseEntity.ok().body( professor );
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.unitech.entity.Professor;
 import com.unitech.repository.ProfessorRepository;
 import com.unitech.service.IProfessorService;
+import com.unitech.service.exceptions.DataIntegrityViolationException;
 import com.unitech.service.exceptions.ObjectNotFoundException;
 
 /**
@@ -44,8 +45,9 @@ public class ProfessorService implements IProfessorService {
 	}
 
 	@Override
-	public Professor update(Long id, Professor professor) {
-		Professor obj = findById(id);
+	public Professor update(Professor professor) {
+		
+		Professor obj = findById(professor.getId());  //confirma no BD se o Objeto existe
 		obj.setNome( professor.getNome() );  
 		obj.setPassword( professor.getPassword() );
 		obj.setAulas( professor.getAulas() );
@@ -53,21 +55,14 @@ public class ProfessorService implements IProfessorService {
 		return repository.save(obj);
 	}
 
-	//TODO - refqatorar o delete
 	@Override
 	public void delete(Long id) {
+		
 		Professor obj = findById(id);
-		repository.delete(obj);
-		/*
-		findById(id);
-			
-		try {
-			repository.deleteById(id);
-		} catch ( DataIntegrityViolationException e) {
-			throw new com.geraldo.service.exceptions.DataIntegrityViolationException
-			( "Categoria não pode ser deletado! Possue livros associados." );
-		}
-		 */
+		if( obj.getAulas().size() > 0 )
+			throw new DataIntegrityViolationException("Professor não pode ser deletado! Possue aulas associadas.");	 
+		else
+			repository.delete(obj);					
 	}
 	
 	/**

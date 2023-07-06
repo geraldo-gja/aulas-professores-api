@@ -30,24 +30,31 @@ public interface IAulaService {
 	public List<Aula> findAll();
 	
 	/**
+	 * Busca todas as aulas vinculadas a um Professor.
+	 * 
+	 * @return Lista de Aula
+	 */
+	public List<Aula> findAllByProfessor(long id);
+	
+	/**
 	 * Salva uma Aula.
 	 * O id é gerado de forma sequencial.
 	 * Se a data estiver null, será criada com a data atual.
 	 * 
 	 * @param aula - Entidade Aula
+	 * @param idProfessor - Professor ao qual a aula será vinculada
 	 * @return Entidade Aula com ID gerado.
 	 */
-	public Aula save(Aula aula);
+	public Aula save(Aula aula, long idProfessor);
 	
 	
 	/**
 	 * Atualiza uma Aula pelo id.
 	 * 
-	 * @param id - identificador de Aula
 	 * @param aula - Entidade Aula
 	 * @return Entidade Aula atualizada
 	 */
-	public Aula update(Long id, Aula aula);
+	public Aula update(Aula aula);
 	
 	/**
 	 * Deleta uma Aula.
