@@ -53,9 +53,15 @@ public class ProfessorController {
 	}
 	
 	@PostMapping("/save")			
-	public ResponseEntity<Professor> save(@RequestBody @Valid Professor professor) {
+	public ResponseEntity<String> save(@RequestBody @Valid Professor professor) {
 		professor = service.save(professor);
-		return ResponseEntity.ok().body( professor );
+		
+		String msg = "Cadastro realizado. Em breve receberá um email para ativação do cadastro. \n" + 
+					 "Se preferir pode clicar no link abaixo: \n";
+		String link = "http://localhost:8080/professores/ativar/" +
+				   professor.getId() + "/" + professor.getCodigo();
+		
+		return ResponseEntity.ok(msg+link);
 	}
 	
 	@GetMapping("/ativar/{id}/{codigo}")			
