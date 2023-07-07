@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -20,7 +21,6 @@ import lombok.Data;
 @SuppressWarnings("serial")
 public abstract class Usuario implements UserDetails {
 
-
 	@Id
 	private Long id;
 	
@@ -33,15 +33,20 @@ public abstract class Usuario implements UserDetails {
 	@Length(min = 8, max = 30, message = "O campo NOME deve ter entre {min} e {max} caracteres")
 	private String password;
 	
+	@NotBlank(message = "Campo NOME é obrigatório.")
+	@Pattern(regexp = "^[A-Z](.)*", message = "Campo NOME deve iniciar com Letra Maiuscula") 
+	private String nome;
+	
 	private boolean isAtivo;
 	
 	public Usuario() {
 
 	}
 	
-	public Usuario(String login, String password) {
+	public Usuario(String login, String password, String nome) {
 		this.login = login;
 		this.password = password;
+		this.nome = nome;
 	}
 	
 	@Override

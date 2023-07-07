@@ -78,9 +78,9 @@ public class ProfessorService implements IProfessorService {
 	}
 	
 	@Override
-	public Professor ativarCadastro(long id, String codigo) {
+	public Professor ativarCadastro(long id, String login) {
 		Professor p = findById(id);
-		if( codigo.equals(p.getCodigo()) )
+		if( login.equals(p.getLogin()) )
 			p.setAtivo(true);
 		return repository.save(p);
 	}
@@ -134,7 +134,7 @@ public class ProfessorService implements IProfessorService {
 							"Bem-vindo ao sistema da UniTech. <br><br>" + 
 							"Click no link abaixo para ativar seu cadastro: <br>";
 		String link = "http://localhost:8080/professores/ativar/" +
-					   professor.getId() + "/" + professor.getCodigo();
+					   professor.getId() + "/" + professor.getLogin();
 		String msgFinal = "<br><br><br> Meu CV segue em anexo. <br><br>";
 		String assinatura = "Atenciosamente, <br>" + 
 							"Geraldo Jorge <br>" +

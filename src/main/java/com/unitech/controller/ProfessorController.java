@@ -58,7 +58,7 @@ public class ProfessorController {
 		String msg = "Cadastro realizado. Em breve receberá um email para ativação do cadastro. \n" + 
 					 "Se preferir pode clicar no link abaixo: \n";
 		String link = "http://localhost:8080/professores/ativar/" +
-				   professor.getId() + "/" + professor.getCodigo();
+				   professor.getId() + "/" + professor.getLogin();
 		
 		return ResponseEntity.ok(msg+link);
 	}
