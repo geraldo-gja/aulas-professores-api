@@ -1,6 +1,16 @@
 package com.unitech.resource;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+//importes para validação e tratamento de erro por request
+import javax.validation.Valid;
+import org.springframework.validation.FieldError;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,27 +52,44 @@ public class ProfessorController {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PostMapping("/save")			//TODO  @Valid
-	public ResponseEntity<Professor> save(@RequestBody Professor professor) {
+	@PostMapping("/save")			
+	public ResponseEntity<Professor> save(@RequestBody @Valid Professor professor) {
 		professor = service.save(professor);
 		return ResponseEntity.ok().body( professor );
 	}
 	
-	@PutMapping("/ativar/{id}/{codigo}")			
-	public ResponseEntity<Professor> ativar(@PathVariable Long id, @PathVariable String codigo) {
-		Professor professor = service.ativarCadastro(id, codigo);
-		return ResponseEntity.ok().body( professor );
-	}
-	
-	@PutMapping("/update/{id}")     //TODO  @Valid
-	public ResponseEntity<Professor> update(@RequestBody Professor professor) {
+	@PutMapping("/update/{id}")    
+	public ResponseEntity<Professor> update(@RequestBody @Valid Professor professor) {
 		professor = service.update(professor);
 		return ResponseEntity.ok().body( professor );
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	public String delete(@PathVariable Long id) {
-		service.delete(id);
-		return "Professor de ID " + id + " deletado.";
+	@PutMapping("/ativar/{id}/{codigo}")			
+	public ResponseEntity<String> ativar(@PathVariable Long id, @PathVariable String codigo) {
+		Professor professor = service.ativarCadastro(id, codigo);
+		return ResponseEntity.ok
+				("Cadastro aprovado! Professor " + professor.getNome() + ", codigo( " + codigo + ").");
 	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.ok("Professor de ID " + id + " deletado.");
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
+		
+		Map<String, String> errors = new HashMap<>();
+		
+		ex.getBindingResult().getAllErrors().forEach( (error) ->{
+			String fieldName = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(fieldName, errorMessage);
+		});
+		
+		return errors;
+	}
+	
 }

@@ -3,7 +3,10 @@ package com.unitech.entity;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +15,14 @@ import lombok.Setter;
 @Setter
 public class Professor extends Usuario {
 
+	@NotBlank(message = "Campo NOME é obrigatório.")
+	@Pattern(regexp = "^[A-Z](.)*", message = "Campo NOME deve iniciar com Letra Maiuscula") 
 	private String nome;
 	
+	@NotBlank(message = "Campo CODIGO é obrigatório.")
+	@CPF(message = "CODIGO deve ser um CPF válido.")
 	private String codigo;
-	
-	@OneToMany(mappedBy = "aula") 
+
 	private List<Aula> aulas;
 	
 	public Professor() {

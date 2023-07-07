@@ -49,12 +49,12 @@ public class AulaService implements IAulaService {
 	}
 	
 	@Override
-	public Aula save(Aula aula, long idProfessor){
+	public Aula save(Aula aula){
 		aula.setId( generateId() );  
 		if( aula.getDate() == null )
 			aula.setDate( new Date() );
 		
-		Professor p = professorService.findById(idProfessor);
+		Professor p = professorService.findById(aula.getIdProfessor());
 		
 		if( p.isAtivo() ) {
 			aula.setIdProfessor(p.getId());

@@ -44,10 +44,9 @@ public interface IAulaService {
 	 * então só será salva se o professor estiver com cadastro ativo.
 	 * 
 	 * @param aula - Entidade Aula
-	 * @param idProfessor - Professor ao qual a aula será vinculada
 	 * @return Entidade Aula com ID gerado.
 	 */
-	public Aula save(Aula aula, long idProfessor);
+	public Aula save(Aula aula);
 	
 	
 	/**
