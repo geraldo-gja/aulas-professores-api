@@ -58,19 +58,19 @@ public class ProfessorController {
 		return ResponseEntity.ok().body( professor );
 	}
 	
-	@PutMapping("/update/{id}")    
-	public ResponseEntity<Professor> update(@RequestBody @Valid Professor professor) {
-		professor = service.update(professor);
-		return ResponseEntity.ok().body( professor );
-	}
-	
-	@PutMapping("/ativar/{id}/{codigo}")			
+	@GetMapping("/ativar/{id}/{codigo}")			
 	public ResponseEntity<String> ativar(@PathVariable Long id, @PathVariable String codigo) {
 		Professor professor = service.ativarCadastro(id, codigo);
 		return ResponseEntity.ok
 				("Cadastro aprovado! Professor " + professor.getNome() + ", codigo( " + codigo + ").");
 	}
 	
+	@PutMapping("/update/{id}")    
+	public ResponseEntity<Professor> update(@RequestBody @Valid Professor professor) {
+		professor = service.update(professor);
+		return ResponseEntity.ok().body( professor );
+	}
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		service.delete(id);

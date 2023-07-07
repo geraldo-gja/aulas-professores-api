@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.unitech.entity.Professor;
 import com.unitech.repository.ProfessorRepository;
 import com.unitech.service.IProfessorService;
+import com.unitech.service.email.EmailService;
 import com.unitech.service.exceptions.DataIntegrityViolationException;
 import com.unitech.service.exceptions.ObjectNotFoundException;
+
 
 /**
  * Classe implementação de Serviços de Professor.
@@ -25,6 +27,9 @@ public class ProfessorService implements IProfessorService {
 
 	@Autowired
 	private ProfessorRepository repository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Override
 	public Professor findById(Long id) {
@@ -41,7 +46,9 @@ public class ProfessorService implements IProfessorService {
 	@Override
 	public Professor save(Professor professor) {
 		professor.setId( generateId() );  	
-		return repository.save(professor);
+		professor = repository.save(professor);
+		enviarEmailConfimacaoCadastro( professor ); 
+		return professor;
 	}
 
 	@Override
@@ -88,5 +95,30 @@ public class ProfessorService implements IProfessorService {
 		return id;
 	}
 	
+	/**
+	 * Envia email para confirmação de cadastro.	
+	 */
+	private void enviarEmailConfimacaoCadastro(Professor professor) {
+		
+		String email = professor.getLogin();  //login é um email válido
+		String titulo = "Geraldo Jorge - seleção FourD - Confirmação de cadastro";
+		String anexo = "arquivos/CV-Geraldo.pdf";
+		
+		//Conteúdo
+		String msgInicial = "Olá ," + professor.getNome() + " <br>" + 
+							"Bem-vindo ao sistema da UniTech. <br><br>" + 
+							"Click no link abaixo para ativar seu cadastro: <br>";
+		String link = "http://localhost:8080/professores/ativar/" +
+					   professor.getId() + "/" + professor.getCodigo();
+		String msgFinal = "<br><br><br> Meu CV segue em anexo. <br><br>";
+		String assinatura = "Atenciosamente, <br>" + 
+							"Geraldo Jorge <br>" +
+							"Full-Stack Developer <br>" + 
+							"geraldo.gja@gmail.com <br>" +
+							"+55 (88) 9 9999-6947 (whatsapp) <br>";	
+		String conteudo = msgInicial + link + msgFinal + assinatura;
+		
+		emailService.enviarEmailComAnexo(email, titulo,	conteudo, anexo);
+	}
 
 }
