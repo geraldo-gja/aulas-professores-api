@@ -18,8 +18,10 @@ public class TokenService {
 		
 		String token = JWT.create()
 				.withIssuer("Professores")
-				.withSubject(usuario.getUsername())
 				.withClaim("id", usuario.getId())  //TODO - O payload do JWT deve possuir o código e nome do professor
+				.withClaim("login", usuario.getLogin())  
+				.withClaim("nome", usuario.getNome())
+				.withSubject(usuario.getUsername())
 				.withExpiresAt(LocalDateTime.now()  
 						.plusMinutes(10)     //vai esperar o token por 10 minutos
 						.toInstant(ZoneOffset.of("-03:00")))
