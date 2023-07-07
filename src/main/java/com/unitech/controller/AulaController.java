@@ -1,4 +1,4 @@
-package com.unitech.resource;
+package com.unitech.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +40,7 @@ public class AulaController {
 	
 	
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Aula> findById(@PathVariable Long id) {
+	public ResponseEntity<Aula> findById(@PathVariable Long id) {	
 		Aula obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -50,6 +50,8 @@ public class AulaController {
 		List<Aula> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
+	
+	//TODO - listar somente as aulas do professor relacionado ao token de acesso
 	
 	@PostMapping("/save")			
 	public ResponseEntity<Aula> save(@RequestBody @Valid Aula aula) {
@@ -69,6 +71,12 @@ public class AulaController {
 		return ResponseEntity.ok("Aula de ID " + id + " deletada.");
 	}
 	
+	/**
+	 * Envia os erros de validation no response Request.
+	 * 
+	 * @param ex - MethodArgumentNotValidException
+	 * @return Map<String, String>
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){

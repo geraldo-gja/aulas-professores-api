@@ -1,17 +1,24 @@
 package com.unitech.entity;
 
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 
 
 @Data
-public abstract class Usuario {
+@SuppressWarnings("serial")
+public abstract class Usuario implements UserDetails {
 
 
 	@Id
@@ -36,5 +43,41 @@ public abstract class Usuario {
 		this.login = login;
 		this.password = password;
 	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+	
+	@Override
+	public String getUsername() {
+		return login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isAtivo;
+	}
+	
 	
 }

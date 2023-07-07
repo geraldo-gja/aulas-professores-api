@@ -1,4 +1,4 @@
-package com.unitech.resource;
+package com.unitech.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unitech.config.security.FilterToken;
 import com.unitech.entity.Professor;
 import com.unitech.service.IProfessorService;
 
@@ -39,10 +40,12 @@ public class ProfessorController {
 	@Autowired
 	private IProfessorService service;
 	
+	@Autowired
+	private FilterToken filter;
 	
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Professor> findById(@PathVariable Long id) {
-		Professor obj = service.findById(id);
+		Professor obj = service.findById(id);		
 		return ResponseEntity.ok().body(obj);
 	}
 	
@@ -54,7 +57,7 @@ public class ProfessorController {
 	
 	@PostMapping("/save")			
 	public ResponseEntity<String> save(@RequestBody @Valid Professor professor) {
-		professor = service.save(professor);
+		professor = service.save(professor, true);
 		
 		String msg = "Cadastro realizado. Em breve receberá um email para ativação do cadastro. \n" + 
 					 "Se preferir pode clicar no link abaixo: \n";

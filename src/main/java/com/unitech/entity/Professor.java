@@ -15,6 +15,8 @@ import lombok.Setter;
 @Setter
 public class Professor extends Usuario {
 
+	private static final long serialVersionUID = 1L;
+	
 	@NotBlank(message = "Campo NOME é obrigatório.")
 	@Pattern(regexp = "^[A-Z](.)*", message = "Campo NOME deve iniciar com Letra Maiuscula") 
 	private String nome;
@@ -36,5 +38,6 @@ public class Professor extends Usuario {
 		this.codigo = codigo;
 		aulas = new LinkedList<Aula>();
 	}
+
 	
 }

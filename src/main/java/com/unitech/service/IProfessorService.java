@@ -23,6 +23,16 @@ public interface IProfessorService {
 	public Professor findById (Long id);
 	
 	/**
+	 * Busca um Professor pelo login. 
+	 * Lança ObjectNotFoundException caso não encontre.
+	 * 
+	 * @param login - login de Professor
+	 * @return Entidade Professor
+	 * @throws ObjectNotFoundException se login não existe
+	 */
+	public Professor findByLogin(String login);
+	
+	/**
 	 * Busca todos os Professores.
 	 * 
 	 * @return Lista de Professor
@@ -32,11 +42,13 @@ public interface IProfessorService {
 	/**
 	 * Salva um Professor.
 	 * O id é gerado de forma sequencial.
+	 * Envia e-mail de confirmação (opcional).
 	 * 
 	 * @param Professor - Entidade Professor
+	 * @param enviarEmail - se 'true' envia email de confirmação
 	 * @return Entidade Professor com ID gerado.
 	 */
-	public Professor save(Professor Professor);
+	public Professor save(Professor Professor, boolean enviarEmail);
 	
 	/**
 	 * Ativa o cadastro de um Professor.
