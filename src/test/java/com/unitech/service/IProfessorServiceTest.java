@@ -44,24 +44,27 @@ public class IProfessorServiceTest {
 		
 		Professor obj1 = new Professor("geraldo.gja@gmail.com", "321", "Geraldo", "654321");
 		obj1.setAtivo(true);
-		obj1 = service.save(obj1);
+		obj1 = service.save(obj1, false);
 		Assertions.assertEquals(1, obj1.getId());
 		
 		Professor obj2 = new Professor("email@gmail.com", "456", "Professor", "987654");
 		obj2.setAtivo(true);
-		obj2 = service.save(obj2);
+		obj2 = service.save(obj2, false);
 		Assertions.assertNotNull(obj1.getAulas());
 		
 		Professor obj3 = new Professor("teste1@teste1.com", "456", "Teste 1", "987654");
-		obj3 = service.save(obj3);
+		obj3 = service.save(obj3, false);
 		Assertions.assertEquals(3, obj3.getId());
 		
 		//set ID para sequencia conforme registros no BD
 		Professor obj4 = new Professor("teste2@teste2.com", "456", "Teste 2", "987654");
 		obj4.setId(0L);
-		obj4 = service.save(obj4);
+		obj4 = service.save(obj4, false);
 		Assertions.assertEquals(4, obj4.getId());
 		
+		Professor obj5= new Professor("geraldo.gja@gmail.com", "321", "Geraldo", "654321");
+		Assertions.assertThrows
+			( DataIntegrityViolationException.class, () -> service.save(obj5, false) );
 	}
 	
 	@Test
@@ -85,15 +88,25 @@ public class IProfessorServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Deve buscar todos os registros de Professor")
+	@DisplayName("Deve buscar um Professor por login")
 	void teste04() {
+		Professor obj = service.findByLogin("geraldo.gja@gmail.com");
+		Assertions.assertEquals("geraldo.gja@gmail.com", obj.getLogin() );
+		
+		Professor obj2 = service.findByLogin("nao@existe.com");
+		Assertions.assertNull(obj2);
+	}
+	
+	@Test
+	@DisplayName("Deve buscar todos os registros de Professor")
+	void teste05() {
 		List<Professor> lista = service.findAll();
 		Assertions.assertEquals(4, lista.size() );
 	}
 	
 	@Test
 	@DisplayName("Deve deletar um registro de Professor")
-	void teste05() {
+	void teste06() {
 		service.delete(4L);
 		List<Professor> lista = service.findAll();
 		Assertions.assertEquals(3, lista.size() );
