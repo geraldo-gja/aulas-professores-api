@@ -46,27 +46,28 @@ class IAulaServiceTest {
 	@DisplayName("Deve salvar uma Aula")
 	void teste01() {
 		
-		Aula obj1 = new Aula("Portugues", "1º fundamental", null);
-		obj1 = service.save(obj1, 1L);
+		Aula obj1 = new Aula("Portugues", "1º fundamental", null, 1);
+		obj1 = service.save(obj1);
 		Assertions.assertEquals(1, obj1.getId());
 		
 		//set ID para sequencia conforme registros no BD
-		Aula obj2 = new Aula("Matemática", "2º fundamental", new Date());
+		Aula obj2 = new Aula("Matemática", "2º fundamental", new Date(), 1);
 		obj2.setId(0);
-		obj2 = service.save(obj2, 1L);
+		obj2 = service.save(obj2);
 		Assertions.assertEquals(2, obj2.getId());
 		
-		Aula obj3 = new Aula("Inglês", "1º fundamental", null);
-		obj3 = service.save(obj3, 2L);
+		Aula obj3 = new Aula("Inglês", "1º fundamental", null, 2);
+		obj3 = service.save(obj3);
 		Assertions.assertEquals(2, obj3.getIdProfessor());
 		
-		Aula obj4 = new Aula("Computação", "1º fundamental", null);
-		obj4 = service.save(obj4, 2L);
+		Aula obj4 = new Aula("Computação", "1º fundamental", null, 2);
+		obj4 = service.save(obj4);
 		Assertions.assertNotNull(obj4.getDate());
 		
 		//dispara excetion caso tente adicionar uma aula vinculado a um professor com cadastro não ativo
 		Assertions.assertThrows
-		( DataIntegrityViolationException.class, () -> service.save(new Aula(), 3L) );  
+			( DataIntegrityViolationException.class, () -> 
+			  service.save( new Aula("a", "", null, 3) ) );  
 	}
 	
 	@Test
@@ -74,7 +75,7 @@ class IAulaServiceTest {
 	void teste02() {
 		
 		//ignora ID e Date
-		Aula obj1 = new Aula("Ciências", "3º fundamental", null);
+		Aula obj1 = new Aula("Ciências", "3º fundamental", null, 1);
 		obj1.setId(1L);
 		obj1 = service.update(obj1);
 		Assertions.assertEquals("Ciências", obj1.getTitulo());
