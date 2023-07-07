@@ -74,7 +74,6 @@ public class AulaController {
 		List<Aula> list = service.findAllByProfessor(p.getId());
 		return ResponseEntity.ok().body(list);
 	}
-	//TODO - listar somente as aulas do professor relacionado ao token de acesso
 	
 	@PostMapping("/save")			
 	public ResponseEntity<Aula> save(@RequestBody @Valid Aula aula) {
