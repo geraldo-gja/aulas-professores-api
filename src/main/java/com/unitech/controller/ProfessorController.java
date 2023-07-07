@@ -40,9 +40,6 @@ public class ProfessorController {
 	@Autowired
 	private IProfessorService service;
 	
-	@Autowired
-	private FilterToken filter;
-	
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Professor> findById(@PathVariable Long id) {
 		Professor obj = service.findById(id);		
