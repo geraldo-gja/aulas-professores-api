@@ -3,6 +3,8 @@ package com.unitech.service.security;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -23,6 +25,17 @@ public class TokenService {
 						.toInstant(ZoneOffset.of("-03:00")))
 				.sign(Algorithm.HMAC256("secreta"));
 		
+		return token;
+	}
+	
+	public String getToken(HttpServletRequest request) {
+		
+		String token = null;
+		String authorizationHeader = request.getHeader("Authorization");
+		
+		if (authorizationHeader != null) 
+			token = authorizationHeader.replace("Bearer ", "");
+			
 		return token;
 	}
 	

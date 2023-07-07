@@ -30,14 +30,10 @@ public class FilterToken extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
 			FilterChain filterChain) throws ServletException, IOException {
 		
-		String token;
+		String token = this.tokenService.getToken(request);
 		
-		String authorizationHeader = request.getHeader("Authorization");
-		
-		if (authorizationHeader != null) {
-			token = authorizationHeader.replace("Bearer ", "");   //remover o nome Bearer que vem no início do token
+		if (token != null) {
 			String subject = this.tokenService.getSubject(token);
-			
 			Professor usuario = this.usuarioRepository.findByLogin(subject);
 			
 			//authentica usuário e roles
@@ -49,7 +45,5 @@ public class FilterToken extends OncePerRequestFilter {
 		}
 		
 		filterChain.doFilter(request, response);
-		
-		
 	}
 }

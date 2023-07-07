@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unitech.entity.Aula;
+import com.unitech.entity.Professor;
 import com.unitech.service.IAulaService;
+import com.unitech.service.IProfessorService;
+import com.unitech.service.security.TokenService;
 
 /**
  * Classe para requisições Rest relacionado à entidadeAula.
@@ -38,6 +42,15 @@ public class AulaController {
 	@Autowired
 	private IAulaService service;
 	
+	@Autowired
+	private IProfessorService professorService;
+	
+	@Autowired
+	private HttpServletRequest request;
+	
+	@Autowired
+	private TokenService tokenService;
+	
 	
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Aula> findById(@PathVariable Long id) {	
@@ -51,6 +64,16 @@ public class AulaController {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping("/findAllByProfessor")
+	public ResponseEntity< List<Aula> > findAllByProfessor(){
+		
+		String token = tokenService.getToken(request);
+		String login = tokenService.getSubject(token);
+		Professor p = professorService.findByLogin(login);
+		
+		List<Aula> list = service.findAllByProfessor(p.getId());
+		return ResponseEntity.ok().body(list);
+	}
 	//TODO - listar somente as aulas do professor relacionado ao token de acesso
 	
 	@PostMapping("/save")			

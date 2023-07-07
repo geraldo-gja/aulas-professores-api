@@ -43,6 +43,7 @@ public class AulaService implements IAulaService {
 		return repository.findAll();
 	}
 	
+	@Override
 	public List<Aula> findAllByProfessor(long id){
 		List<Aula> l = repository.findAllByProfessor(id);
 		return l;
