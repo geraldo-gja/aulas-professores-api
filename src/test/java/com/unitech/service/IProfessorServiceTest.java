@@ -42,27 +42,27 @@ public class IProfessorServiceTest {
 	@DisplayName("Deve salvar um Professor")
 	void teste01() {
 		
-		Professor obj1 = new Professor("geraldo.gja@gmail.com", "321", "Geraldo", "654321");
+		Professor obj1 = new Professor("geraldo.gja@gmail.com", "321", "Geraldo");
 		obj1.setAtivo(true);
 		obj1 = service.save(obj1, false);
 		Assertions.assertEquals(1, obj1.getId());
 		
-		Professor obj2 = new Professor("email@gmail.com", "456", "Professor", "987654");
+		Professor obj2 = new Professor("email@gmail.com", "456", "Professor");
 		obj2.setAtivo(true);
 		obj2 = service.save(obj2, false);
 		Assertions.assertNotNull(obj1.getAulas());
 		
-		Professor obj3 = new Professor("teste1@teste1.com", "456", "Teste 1", "987654");
+		Professor obj3 = new Professor("teste1@teste1.com", "456", "Teste 1");
 		obj3 = service.save(obj3, false);
 		Assertions.assertEquals(3, obj3.getId());
 		
 		//set ID para sequencia conforme registros no BD
-		Professor obj4 = new Professor("teste2@teste2.com", "456", "Teste 2", "987654");
+		Professor obj4 = new Professor("teste2@teste2.com", "456", "Teste 2");
 		obj4.setId(0L);
 		obj4 = service.save(obj4, false);
 		Assertions.assertEquals(4, obj4.getId());
 		
-		Professor obj5= new Professor("geraldo.gja@gmail.com", "321", "Geraldo", "654321");
+		Professor obj5= new Professor("geraldo.gja@gmail.com", "321", "Geraldo");
 		Assertions.assertThrows
 			( DataIntegrityViolationException.class, () -> service.save(obj5, false) );
 	}
@@ -70,7 +70,7 @@ public class IProfessorServiceTest {
 	@Test
 	@DisplayName("Deve atualizar um Professor")
 	void teste02() {
-		Professor obj1 = new Professor("geraldo.gja@gmail.com", "123", "Geraldo Jorge", "123456");
+		Professor obj1 = new Professor("geraldo.gja@gmail.com", "123", "Geraldo Jorge");
 		obj1.setId(1L);
 		obj1 = service.update(obj1);
 		Assertions.assertEquals("Geraldo Jorge", obj1.getNome());
