@@ -19,7 +19,7 @@ public class TokenService {
 		String token = JWT.create()
 				.withIssuer("Professores")
 				.withClaim("id", usuario.getId())  //TODO - O payload do JWT deve possuir o código e nome do professor
-				.withClaim("login", usuario.getLogin())  
+				.withClaim("codigo", usuario.getLogin())  
 				.withClaim("nome", usuario.getNome())
 				.withSubject(usuario.getUsername())
 				.withExpiresAt(LocalDateTime.now()  
