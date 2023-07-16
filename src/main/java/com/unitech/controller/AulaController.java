@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ import com.unitech.service.security.TokenService;
  * @author Geraldo Jorge
  * email: geraldo.gja@gmail.com
  */
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping(value = "/aulas")
 public class AulaController {
