@@ -22,6 +22,8 @@ import com.unitech.service.exceptions.ObjectNotFoundException;
  * 
  * @author Geraldo Jorge
  * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
  */
 @Service
 public class ProfessorService implements IProfessorService {
@@ -32,24 +34,35 @@ public class ProfessorService implements IProfessorService {
 	@Autowired
 	private EmailService emailService;
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Professor findById(Long id) {
 		Optional<Professor> obj = repository.findById(id);	
-		return obj.orElseThrow( () -> new ObjectNotFoundException(
-				"Objeto não encontrato! Id: " + id + ", Tipo: " + Professor.class.getName() ) );
+		return obj.orElseThrow( () -> new ObjectNotFoundException(Professor.class.getSimpleName(), id) );
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Professor findByLogin(String login) {
 		Professor obj = repository.findByLogin(login);	
 		return obj;
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Professor> findAll() {
 		return repository.findAll();
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Professor save(Professor professor, boolean enviarEmail) {
 		
@@ -57,7 +70,7 @@ public class ProfessorService implements IProfessorService {
 		professor.setPassword( encriptografarSenha(professor.getPassword()) );
 		
 		if( findByLogin(professor.getLogin()) != null )
-			throw new DataIntegrityViolationException("Login já existente na base de dados.");	 
+			throw new DataIntegrityViolationException(Professor.class.getSimpleName(), "Login já existente na base de dados.");	 
 	
 		professor = repository.save(professor);
 		if(enviarEmail)
@@ -66,6 +79,9 @@ public class ProfessorService implements IProfessorService {
 		return professor;
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Professor update(Professor professor) {
 		
@@ -77,6 +93,9 @@ public class ProfessorService implements IProfessorService {
 		return repository.save(obj);
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Professor ativarCadastro(long id, String login) {
 		Professor p = findById(id);
@@ -85,6 +104,9 @@ public class ProfessorService implements IProfessorService {
 		return repository.save(p);
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public void delete(Long id) {
 		
@@ -92,7 +114,7 @@ public class ProfessorService implements IProfessorService {
 		if( obj.getAulas().size() == 0 )
 			repository.delete(obj);					
 		else
-			throw new DataIntegrityViolationException("Professor não pode ser deletado! Possue aulas associadas.");	 
+			throw new DataIntegrityViolationException(Professor.class.getSimpleName(), "Não pode ser deletado! Possue aulas associadas.");	 
 	}
 	
 	/**

@@ -21,6 +21,8 @@ import com.unitech.service.exceptions.ObjectNotFoundException;
  * 
  * @author Geraldo Jorge
  * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
  */
 @Service
 public class AulaService implements IAulaService {
@@ -31,24 +33,35 @@ public class AulaService implements IAulaService {
 	@Autowired
 	private ProfessorService professorService;
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Aula findById (Long id) {		
 		Optional<Aula> obj = repository.findById(id);	
-		return obj.orElseThrow( () -> new ObjectNotFoundException(
-				"Objeto não encontrato! Id: " + id + ", Tipo: " + Aula.class.getName() ) );
+		return obj.orElseThrow( () -> new ObjectNotFoundException(Aula.class.getSimpleName(), id) );
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Aula> findAll(){
 		return repository.findAll();
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Aula> findAllByProfessor(long id){
 		List<Aula> l = repository.findAllByProfessor(id);
 		return l;
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Aula save(Aula aula){
 		aula.setId( generateId() );  
@@ -63,11 +76,14 @@ public class AulaService implements IAulaService {
 			atualizarAulasProfessor(aula.getIdProfessor());  		
 		}else
 			throw new DataIntegrityViolationException
-				("Aula não pode ser salva para este professor! Cadastro de Professor não está ativo.");	
+				(Aula.class.getSimpleName(), "Aula não pode ser salva para este professor! Cadastro de Professor não está ativo.");	
 		
 		return aula;
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public Aula update(Aula aula){		
 		Aula obj = findById(aula.getId());
@@ -83,6 +99,9 @@ public class AulaService implements IAulaService {
 		return obj;
 	}
 	
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public void delete(Long id) {
 		Aula obj = findById(id);
