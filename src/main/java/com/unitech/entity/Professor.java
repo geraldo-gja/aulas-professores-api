@@ -6,6 +6,14 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Classe para representar a entidade Professor.
+ * 
+ * @author Geraldo Jorge
+ * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
+ */
 @Getter
 @Setter
 public class Professor extends Usuario {

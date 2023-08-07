@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * 
  * @author Geraldo Jorge
  * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 07/07/2023
  */
 @Configuration
 @EnableWebSecurity

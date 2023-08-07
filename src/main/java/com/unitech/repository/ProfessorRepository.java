@@ -11,9 +11,17 @@ import com.unitech.entity.Professor;
  * 
  * @author Geraldo Jorge
  * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
  */
 public interface ProfessorRepository extends MongoRepository<Professor, Long>{
 
+	/**
+	 * Busca Professor identificado pelo login.
+	 * 
+	 * @param login
+	 * @return Professor identificado pelo login
+	 */
 	@Query("{'login': ?0}")
 	Professor findByLogin(String login);
 }

@@ -16,7 +16,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 
-
+/**
+ * Classe abstrata para representar a entidade Usuáriio.
+ * Também contém métodos para controle de autenticação do Spring security.
+ * 
+ * @author Geraldo Jorge
+ * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
+ */
 @Data
 @SuppressWarnings("serial")
 public abstract class Usuario implements UserDetails {

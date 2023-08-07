@@ -7,9 +7,22 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 
+/**
+ * Classe de configuração do Swagger.
+ * 
+ * @author Geraldo Jorge
+ * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 06/07/2023
+ */
 @Configuration
 public class SwaggerConfiguration {
 
+	/**
+	 * Gera automaticamente a documentação Rest APi.
+	 * 
+	 * @return Docket
+	 */
 	@Bean
     public Docket docket(){ 
 

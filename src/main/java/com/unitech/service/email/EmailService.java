@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Esta classe é responsável por enviar e-mails com anexos usando o serviço JavaMailSender.
+ *
+ */
 @Service
 @Slf4j
 public class EmailService {
@@ -19,6 +23,14 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    /**
+     * Método para enviar um e-mail com um anexo.
+     *
+     * @param para     O destinatário do e-mail.
+     * @param titulo   O título (assunto) do e-mail.
+     * @param conteudo O conteúdo do e-mail, que pode ser em formato HTML.
+     * @param arquivo  O nome do arquivo a ser anexado ao e-mail.
+     */
     public void enviarEmailComAnexo(String para, String titulo, String conteudo, String arquivo) {
     	
         log.info("Enviando email com anexo");

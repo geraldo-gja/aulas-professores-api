@@ -13,6 +13,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+/**
+ * Classe para representar a entidade Aula.
+ * 
+ * @author Geraldo Jorge
+ * email: geraldo.gja@gmail.com
+ * @version 1.0
+ * Data: 04/07/2023
+ */
 @Data
 public class Aula {
 
