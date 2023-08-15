@@ -21,7 +21,7 @@ import org.junit.runners.Suite;
  * Como as aulas precisam de um idProfessor, o professor já precisa ser criado
  */
 @SpringBootTest
-class TesteFourdApplicationTests {
+class AulasProfessoresApplicationTests {
 
 	@Test
 	void contextLoads() {

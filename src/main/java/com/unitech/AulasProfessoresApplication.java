@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Data: 04/07/2023
  */
 @SpringBootApplication
-public class TesteFourdApplication {
+public class AulasProfessoresApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TesteFourdApplication.class, args);
+		SpringApplication.run(AulasProfessoresApplication.class, args);
 	}
 
 }
